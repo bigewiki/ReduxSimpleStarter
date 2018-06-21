@@ -4,10 +4,9 @@ import ReactDOM from 'react-dom';
 // create new component
 // this component should create some html
 
-const App = function() {
+const App = () => {
   return <div>Hi!</div>;
 }
-
 
 // take this component's generated HTML and put it in the DOM
 
