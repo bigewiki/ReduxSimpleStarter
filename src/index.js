@@ -1,25 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
-
 import SearchBar from './components/search_bar';
-
-//youtube API key
+import VideoList from './components/video_list'
 const API_KEY = 'AIzaSyBqpuja5iutgBYzDJnosjY2-UkZ5EZg-6o';
 
-YTSearch({key: API_KEY, term: 'surfboards'}, function(data){
-  console.log(data);
-});
+//class based component for App
+class App extends Component{
+  constructor(props){
+    super(props);
+    //declare empty array for videos
+    this.state = { videos: [] };
+    //YT API call
+    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+      this.setState({ videos })
+    });
+  }
 
-const App = () => {
-  return (
-    <div>
-      <SearchBar/>
-    </div>
-  )
+  render(){
+    return(
+      <div>
+        <SearchBar/>
+        <VideoList videos={this.state.videos} />
+      </div>
+    )
+  }
 }
 
-// take this component's generated HTML and put it in the DOM
-
-//this needs two parameters, the second is the target: where to render the component (existng node)
 ReactDOM.render(<App />, document.querySelector('.container'));
